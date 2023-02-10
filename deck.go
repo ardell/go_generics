@@ -22,6 +22,16 @@ func NewPlayingCardDeck() *Deck[*PlayingCard] {
 	return deck
 }
 
+func NewTradingCardDeck() *Deck[*TradingCard] {
+	collectibles := []string{"Foo", "Bar", "Baz", "Fizz", "Buzz"}
+
+	deck := &Deck[*TradingCard]{}
+	for _, collectibleName := range collectibles {
+		deck.AddCard(NewTradingCard(collectibleName))
+	}
+	return deck
+}
+
 func (d *Deck[C]) AddCard(card C) {
 	d.cards = append(d.cards, card)
 }
