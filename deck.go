@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type Deck[C any] struct {
+type Deck[C Card] struct {
 	cards []C
 }
 
