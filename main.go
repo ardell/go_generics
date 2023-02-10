@@ -2,17 +2,20 @@ package main
 
 import "fmt"
 
+func printCard[C Card](card C) {
+	fmt.Printf("card: %s\n", card)
+	fmt.Printf("  name: %s\n", card.Name())
+}
+
 func main() {
 	playingCardDeck := NewPlayingCardDeck()
 	playingCard := playingCardDeck.RandomCard()
-	fmt.Printf("playing card: %s\n", playingCard)
-	fmt.Printf("  name: %s\n", playingCard.Name())
+	printCard(playingCard)
 	fmt.Printf("  suit: %s\n", playingCard.Suit)
 	fmt.Printf("  rank: %s\n", playingCard.Rank)
 
 	tradingCardDeck := NewTradingCardDeck()
 	tradingCard := tradingCardDeck.RandomCard()
-	fmt.Printf("trading card: %s\n", tradingCard)
-	fmt.Printf("  name: %s\n", tradingCard.Name())
+	printCard(tradingCard)
 	fmt.Printf("  collectible name: %s\n", tradingCard.CollectibleName)
 }
