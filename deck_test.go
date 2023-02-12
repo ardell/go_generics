@@ -16,3 +16,18 @@ func TestNewTradingCardDeckCanBeConstructed(t *testing.T) {
 	// since it's likely we'll add more `collectibles` in the future.
 	NewTradingCardDeck()
 }
+
+func TestAddCardAddsACard(t *testing.T) {
+	deck := NewPlayingCardDeck()
+	newCard := NewPlayingCard("spades", "9")
+
+	before := len(deck.cards)
+	deck.AddCard(newCard)
+	after := len(deck.cards)
+
+	actualChange := after - before
+	const expectedChange = 1
+	if actualChange != 1 {
+		t.Errorf("Expected number of cards in deck to change by %q, actually changed by %q", expectedChange, actualChange)
+	}
+}
