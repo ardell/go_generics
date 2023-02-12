@@ -64,3 +64,18 @@ func TestIndexOfCardReturnsErrorWhenCardDoesNotExist(t *testing.T) {
 		t.Errorf("Expected IndexOfCard to return error, but it returned ok.")
 	}
 }
+
+func TestRandomCardReturnsACardFromTheDeck(t *testing.T) {
+	deck := NewPlayingCardDeck()
+	randomCard := deck.RandomCard()
+
+	index, ok := deck.IndexOfCard(randomCard)
+
+	if ok != nil {
+		t.Errorf("Expected deck.IndexOfCard to return ok, got error.")
+	}
+
+	if index < 0 {
+		t.Errorf("Expected index of random card to be greater than zero, got %q", index)
+	}
+}
