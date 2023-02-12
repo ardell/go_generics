@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"math/rand"
 	"time"
 )
@@ -10,12 +11,9 @@ type Deck[C Card] struct {
 }
 
 func NewPlayingCardDeck() *Deck[*PlayingCard] {
-	suits := []string{"Diamonds", "Hearts", "Spades", "Clubs"}
-	ranks := []string{"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"}
-
 	deck := &Deck[*PlayingCard]{}
-	for _, suit := range suits {
-		for _, rank := range ranks {
+	for _, suit := range Suits {
+		for _, rank := range Ranks {
 			deck.AddCard(NewPlayingCard(suit, rank))
 		}
 	}
@@ -34,6 +32,16 @@ func NewTradingCardDeck() *Deck[*TradingCard] {
 
 func (d *Deck[C]) AddCard(card C) {
 	d.cards = append(d.cards, card)
+}
+
+func (d *Deck[C]) IndexOfCard(card C) (int, error) {
+	for i, c := range d.cards {
+		if c == card {
+			return i, nil
+		}
+	}
+
+	return 0, errors.New("Card not found")
 }
 
 func (d *Deck[C]) RandomCard() C {
