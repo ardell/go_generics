@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"golang.org/x/exp/slices"
 	"math/rand"
 	"time"
 )
@@ -35,13 +36,12 @@ func (d *Deck[C]) AddCard(card C) {
 }
 
 func (d *Deck[C]) IndexOfCard(card C) (int, error) {
-	for i, c := range d.cards {
-		if c == card {
-			return i, nil
-		}
+	index := slices.IndexFunc(d.cards, func(c C) bool { return c == card })
+	if index >= 0 {
+		return index, nil
+	} else {
+		return 0, errors.New("Card not found")
 	}
-
-	return 0, errors.New("Card not found")
 }
 
 func (d *Deck[C]) RandomCard() C {
